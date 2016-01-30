@@ -1020,6 +1020,27 @@
 
     };
 
+    _$.startWith = function (obj, pattern) {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="pattern"></param>
+
+        // need to be implemented in the near future
+    };
+
+    _$.endWith = function (obj, pattern) {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="pattern"></param>
+
+        // need to be implemented in the near future
+
+    };
+
     _$.flatten = function (obj) {
         /// <summary>
         /// Convert multi-dimensional array to one-dimensional array

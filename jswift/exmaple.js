@@ -1,4 +1,5 @@
-﻿// 判断两个变量是否严格相等
+﻿
+// 判断两个变量是否严格相等
 console.log('isEqual:' + _$.equals({ key: '151023', name: 'Test', innerJson: { innerKey: '151023', innerName: 'Test' } },
     { key: '151023', name: 'Test', innerJson: { innerKey: '151023', innerName: 'Test' } }));
 
@@ -66,3 +67,24 @@ console.log('rTrim:' + _$.rtrim('   Test String     '));
 
 // 删除字符串两边空格
 console.log('trim:' + _$.trim('   Test String     ') + 'Right');
+
+// 把数字以千分位格式表示
+console.log('formatThousandth:' + _$.formatThousandth('12345678.123456'));
+
+// 把千分位数字转换成正常数据表示方式
+console.log('unFormatThousandth:' + _$.unFormatThousandth('12,345,678.123456%'));
+
+// 把时间格式化成指定格式
+console.log('formatDateTime:' + _$.formatDateTime('2012-01-31 09:00:22', 'yyyy/MM/dd hh:mm:ss'));
+
+// 对包含中文字符的url进行编码
+console.log('encodeUnicodeUrl:' + _$.encodeUnicodeUrl('http://www.eastmoney.com/东方财富'));
+
+// 对编码后的url进行解码
+console.log('decodeUnicodeUrl:' + _$.decodeUnicodeUrl('http%253A%252F%252Fwww.eastmoney.com%252F%25E4%25B8%259C%25E6%2596%25B9%25E8%25B4%25A2%25E5%25AF%258C'));
+
+// 在数组中从指定位置查找第一次出现的指定的元素
+console.log('indexOf: ' + _$.indexOf([1, 2, 3, 4, 5, 6], 4, 2));
+
+// 在数组中从指定位置查找最后一次出现的指定的元素
+console.log('lastIndexOf: ' + _$.lastIndexOf([1, 2, 3, 4, 5, 6], 5, 2));
