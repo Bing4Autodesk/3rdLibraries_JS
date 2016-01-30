@@ -1,10 +1,4 @@
-﻿var _$2 = new _$('123');
-
-alert(3);
-
-alert('Left' + _$2.trim('   Test String     ') + 'Right');
-
-// 判断两个变量是否严格相等
+﻿// 判断两个变量是否严格相等
 console.log('isEqual:' + _$.equals({ key: '151023', name: 'Test', innerJson: { innerKey: '151023', innerName: 'Test' } },
     { key: '151023', name: 'Test', innerJson: { innerKey: '151023', innerName: 'Test' } }));
 
@@ -47,7 +41,7 @@ console.log('isFinite:' + _$.isFinite(6666));
 console.log('isNumeric:' + _$.isNumeric('6666'));
 
 // 判断变量是否不是数值
-console.log('isNaN:' + _$.isNumeric(Number.NaN));
+console.log('isNaN:' + _$.isNaN(Number.NaN));
 
 // 判断变量是否为Bool类型
 console.log('isBoolean:' + _$.isBoolean(true));
