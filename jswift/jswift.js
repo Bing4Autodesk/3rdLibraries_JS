@@ -16,6 +16,10 @@
         //  2016/01/29 14:28:28 || 2016/01/29
         regSlashDateTime = /^(?:19|20)[0-9][0-9]\/(?:(?:0[1-9])|(?:1[0-2]))\/(?:(?:[0-2][1-9])|(?:[1-3][0-1])) ((?:(?:[0-2][0-3])|(?:[0-1][0-9])):[0-5][0-9]:[0-5][0-9])?$/;
 
+    // Default value enumeration
+    var Enum4Default = {
+        number:'_'
+    };
 
     // Save bytes in the minified (but not gzipped) version:
     var ArrayProto = Array.prototype, ObjProto = Object.prototype, FuncProto = Function.prototype;
@@ -445,14 +449,14 @@
             return num;
         }
 
-        var numstring = parsedNum.toString(), regFloat = /^.*\..*$/,
+        var numstring = parsedNum.toString(), regFloat = /^.*\..*$/, regEnd = /%$/,
             index = numstring.indexOf("."), reg = /(-?\d+)(\d{3})/;
 
         if (!regFloat.test(numstring)) {
             while (reg.test(numstring)) {
                 numstring = numstring.replace(reg, "$1,$2");
             }
-            return numstring;
+            return (regEnd.test(num)) ? numstring + '%' : numstring;
         }
         else {
             var stringOfInt = numstring.substring(0, index),
@@ -461,7 +465,7 @@
             while (reg.test(stringOfInt)) {
                 stringOfInt = stringOfInt.replace(reg, "$1,$2");
             }
-            return stringOfInt + "." + stringOfPoint;
+            return (regEnd.test(num)) ? stringOfInt + "." + stringOfPoint + '%' : stringOfInt + "." + stringOfPoint;
         }
     };
 
@@ -765,11 +769,12 @@
         }
 
         if (nativeIndexOf) {
-            return nativeIndexOf.call(arr, el, fromIndex);
+            //return nativeIndexOf.call(arr, el, fromIndex);
         }
 
         n = Math.abs(fromIndex) === Infinity ? fromIndex : 0;
         n = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
+        alert(n);
 
         while (n < len) {
             if (arr[n] === el) {
@@ -794,14 +799,14 @@
         if (fromIndex != 0) {
             n = +fromIndex || len-1;
         }
-        n = max(n >= 0 ? n : len - Math.abs(n), 0);
+        n = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
 
         if (!_$.isArray(arr) || n === 0) {
             return -1;
         }
 
         if (nativeLastIndexOf) {
-            return nativeLastIndexOf.call(arr, el, fromIndex);
+            //return nativeLastIndexOf.call(arr, el, fromIndex);
         }
 
         while (n >= 0) {
@@ -825,11 +830,11 @@
         if (!_$.isArray(arr)) {
             arr = [arr];
         }
-        if (!_$.isUndefined(callback) || _$.isNull(callback) || !_$.isFunction(callback)) {
+        if (_$.isUndefined(callback) || _$.isNull(callback) || !_$.isFunction(callback)) {
             return;
         }
         if (nativeForEach) {
-            nativeForEach.call(arr, callback, args);
+            return nativeForEach.call(arr, callback, args);
         }
         _$.each(arr, callback, args);
     };
@@ -847,7 +852,7 @@
         if (!_$.isArray(arr)) {
             arr = [arr];
         }
-        if (!_$.isUndefined(callback) || _$.isNull(callback) || !_$.isFunction(callback)) {
+        if (_$.isUndefined(callback) || _$.isNull(callback) || !_$.isFunction(callback)) {
             return arr;
         }
 
@@ -858,7 +863,7 @@
         var result = [];
         for (var index = 0, len = arr.length; index < len; index++) {
 
-            if (callback.call(arg, arr[index], index, arr)) {
+            if (callback.call(args, arr[index], index, arr)) {
                 result.push(arr[index]);
             }
         }
@@ -880,7 +885,7 @@
         }
         var result = [];
 
-        if (!_$.isUndefined(callback) || _$.isNull(callback) || !_$.isFunction(callback)) {
+        if (_$.isUndefined(callback) || _$.isNull(callback) || !_$.isFunction(callback)) {
             return _$.clone(arr);
         }
 
@@ -910,12 +915,12 @@
         if (!_$.isArray(arr)) {
             arr = [arr];
         }
-        if (!_$.isUndefined(callback) || _$.isNull(callback) || !_$.isFunction(callback)) {
+        if (_$.isUndefined(callback) || _$.isNull(callback) || !_$.isFunction(callback)) {
             return false;
         }
 
         if (nativeSome) {
-            return nativeSome.call(arr, call, args);
+            //return nativeSome.call(arr, callback, args);
         }
 
         for (var index = 0, len = arr.length; index < len; index++) {
@@ -923,6 +928,8 @@
                 return true;
             }
         }
+
+        return false;
 
     };
 
@@ -939,7 +946,7 @@
         if (!_$.isArray(arr)) {
             arr = [arr];
         }
-        if (!_$.isUndefined(callback) || _$.isNull(callback) || !_$.isFunction(callback)) {
+        if (_$.isUndefined(callback) || _$.isNull(callback) || !_$.isFunction(callback)) {
             return false;
         }
         if (nativeEvery) {
@@ -973,12 +980,12 @@
 
         var index = 0, result = (arguments.length >= 3) ? initial : arr[index++];
 
-        if (!_$.isUndefined(callback) || !_$.isFunction(callback) || arr.length <= 0) {
+        if (_$.isUndefined(callback) || !_$.isFunction(callback) || arr.length <= 0) {
             return null;
         }
 
         if (nativeReduce) {
-            return nativeReduce.call(arr, callback, initial);
+            //return nativeReduce.call(arr, callback, initial);
         }
 
         for (var len = arr.length; index < len; index++) {
@@ -1003,14 +1010,14 @@
             arr = [arr];
         }
 
-        if (!_$.isUndefined(callback) || !_$.isFunction(callback) || arr.length <= 0) {
+        if (_$.isUndefined(callback) || !_$.isFunction(callback) || arr.length <= 0) {
             return null;
         }
         if (nativeReduceRight) {
-            return nativeReduceRight.call(arr, callback, initial);
+            //return nativeReduceRight.call(arr, callback, initial);
         }
 
-        var len = arr.length, index = 0, result = (arguments.length >= 3) ? initial : arr[index--];
+        var len = arr.length, index = len - 1, result = (arguments.length >= 3) ? initial : arr[index--];
         
         for (; index >= 0; index--) {
             result = callback(result, arr[index], index, arr);
@@ -1020,24 +1027,68 @@
 
     };
 
-    _$.startWith = function (obj, pattern) {
+    _$.toFixedEx = function (obj, decimal, defaultVal) {
         /// <summary>
-        /// 
+        /// Parse obj to float number with specified decimal and 
+        /// return default value if it is not an number
         /// </summary>
         /// <param name="obj"></param>
-        /// <param name="pattern"></param>
+        /// <param name="decimal"></param>
+        /// <param name="defaultVal"></param>
 
-        // need to be implemented in the near future
+        if (_$.isUndefined(obj) || _$.isNull(obj)) {
+            return defaultVal ? defaultVal : Enum4Default.number;
+        }
+        var parseVal = _$.parseNumeric(obj);
+
+        if (_$.isNaN(parseVal)) {
+            return defaultVal ? defaultVal : Enum4Default.number;
+        }
+
+        return parseVal.toFixed(decimal);
+
     };
 
-    _$.endWith = function (obj, pattern) {
+    _$.startWith = function (obj, pattern, ignoreCase) {
         /// <summary>
-        /// 
+        /// Check whether the given variable started with specified string
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="pattern"></param>
+        /// <param name="ignoreCase"></param>
 
-        // need to be implemented in the near future
+        if (!_$.isString(obj) || !_$.isString(pattern)) {
+            return false;
+        }
+
+        obj = _$.trim(obj);
+        var reg = new RegExp('(^{0})'.format(pattern.replace('.', '\\.')), ignoreCase ? 'igm' : 'gm');
+
+        if (reg.test(obj)) {
+            return true;
+        }
+        return false;
+
+    };
+
+    _$.endWith = function (obj, pattern, ignoreCase) {
+        /// <summary>
+        /// Check whether the given variable ends with specified string
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="pattern"></param>
+        /// <param name="ignoreCase"></param>
+
+        if (!_$.isString(obj) || !_$.isString(pattern)) {
+            return false;
+        }
+        obj = _$.trim(obj);
+
+        var reg = new RegExp('({0}$)'.format(pattern.replace('.', '\\.')), ignoreCase ? 'igm' : 'gm');
+        if (reg.test(obj)) {
+            return true;
+        }
+        return false;
 
     };
 
