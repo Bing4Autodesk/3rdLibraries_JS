@@ -3,7 +3,7 @@
  *
  * @fileoverview  a javascript library for dev to use.
  * @link          
- * @author        Cheng Bing (chengbing@eastmoney.com)
+ * @author        Cheng Bing (824203428@qq.com)
  * @requires      
  * 
  * 

@@ -200,9 +200,9 @@ console.log('formatDateTime: ' + _$.formatDateTime(new Date(), 'yyyy-MM-dd hh:mm
 _$.decodeUnicodeUrl(url);
 
 // 调用实例
-console.log('decodeUnicodeUrl: ' + _$.encodeUnicodeUrl('http://www.eastmoney.com/东方财富'));
+console.log('decodeUnicodeUrl: ' + _$.encodeUnicodeUrl('http://www.qk365.com/测试网址'));
 //输出结果
-'http%253A%252F%252Fwww.eastmoney.com%252F%25E4%25B8%259C%25E6%2596%25B9%25E8%25B4%25A2%25E5%25AF%258C'
+'http%253A%252F%252Fwww.qk365.com%252F%25E4%25B8%259C%25E6%2596%25B9%25E8%25B4%25A2%25E5%25AF%258C'
 
 
 /********************************************************************** encodeUnicodeUrl ***********************************************************************/
@@ -215,9 +215,9 @@ console.log('decodeUnicodeUrl: ' + _$.encodeUnicodeUrl('http://www.eastmoney.com
 _$.encodeUnicodeUrl(url);
 
 // 调用实例
-console.log('encodeUnicodeUrl: ' + _$.encodeUnicodeUrl('http%253A%252F%252Fwww.eastmoney.com%252F%25E4%25B8%259C%25E6%2596%25B9%25E8%25B4%25A2%25E5%25AF%258C'));
+console.log('encodeUnicodeUrl: ' + _$.encodeUnicodeUrl('http%253A%252F%252Fwww.qk365.com%252F%25E4%25B8%259C%25E6%2596%25B9%25E8%25B4%25A2%25E5%25AF%258C'));
 //输出结果
-'http://www.eastmoney.com/东方财富'
+'http://www.qk365.com/测试网址'
 
 
 
@@ -529,12 +529,12 @@ false
 _$.endWith(obj, pattern, ignoreCase);
 
 // 调用实例
-console.log('endWith: ' + _$.endWith('hello 东方财富 ', '东方财富'));
+console.log('endWith: ' + _$.endWith('hello 测试代码 ', '测试代码'));
 //输出结果
 true;
 
 // 调用实例
-console.log('endWith: ' + _$.endWith('hello 东方财富 ', '东方财富3'));
+console.log('endWith: ' + _$.endWith('hello 测试代码 ', '测试代码3'));
 //输出结果
 false;
 
