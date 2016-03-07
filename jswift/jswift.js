@@ -1103,6 +1103,100 @@
 
         return toOneDimensionArray(obj);
     };
+	
+	function createXHR() {
+        /// <summary>
+        /// Create Ajax request object（惰性加载提升js速度）
+        /// </summary>
+        var xhr, activeX = ["MSXML2.XMLHTTP.5.0", "MSXML2.XMLHTTP.4.0", "MSXML2.XMLHTTP.3.0", "MSXML2.XMLHTTP", "Microsoft.XMLHTTP"];           // 针对IE浏览器
+
+        if (typeof XMLHttpRequest != 'undefined') {
+            xhr = new XMLHttpRequest();
+
+            createXHR = function () {
+                return new XMLHttpRequest();
+            }
+        } else {
+            for (var index = 0, len = activeX.length; index < len; index++) {
+                try {
+                    xhr = new ActiveXObject(activeX[index]);
+
+                    createXHR = function () {
+                        return new ActiveXObject(activeX[index]);
+                    }
+
+                    return xhr;
+
+                } catch (e) {
+
+                }
+            }
+
+            createXHR = function () {
+                return null;
+            }
+        }
+        return xhr
+    }
+
+    function formatParams(params) {
+        /// <summary>
+        /// Format ajax requestion's params
+        /// </summary>
+        /// <param name="params"></param>
+        var paramsArr = [];
+
+        for (var key in params) {
+            if (!params.hasOwnProperty(key)) {
+                continue;
+            }
+
+            paramsArr.push(encodeURIComponent(key) + "=" + encodeURIComponent(params[key]));
+        }
+        paramsArr.push(("v=" + Math.random()).replace(".", ""));
+
+        return paramsArr.join("&");
+    }
+
+
+    _$.ajax = function (options) {
+        /// <summary>
+        /// Send Ajax request
+        /// </summary>
+        /// <param name="options">Ajax请求参数</param>
+
+        options = options || {};
+        options.type = (options.type || "GET").toUpperCase();
+        options.dataType = options.dataType || "json";
+
+        var params = formatParams(options.data),
+            xhr = createXHR();
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                var status = xhr.status;
+
+                if (status >= 200 && status < 300) {
+                    options.success && options.success(xhr.responseText, xhr.responseXML);
+                }
+                else {
+                    options.fail && options.fail(status);
+                }
+            }
+        }
+
+        if (options.type == "GET") {
+            xhr.open("GET", options.url + "?" + params, true);
+
+            xhr.send(null);
+        }
+        if (options.type == "POST") {
+            xhr.open("POST", options.url, true);
+
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send(params);
+        }
+    };
     
     _$.noConflict = function () {
         /// <summary>
